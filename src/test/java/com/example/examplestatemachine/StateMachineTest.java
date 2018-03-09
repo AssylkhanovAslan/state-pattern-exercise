@@ -1,10 +1,10 @@
 package com.example.examplestatemachine;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class StateMachineTest {
     StateContext sc;
@@ -79,6 +79,45 @@ public class StateMachineTest {
         sc.actionB();
         sc.actionA();
         sc.actionA();
+        assertFalse(sc.isAccept());
+    }
+
+    /*
+     * Test Sequence: BAAABAB
+     */
+    @Test
+    public void test_7() {
+        sc.actionB();
+        sc.actionA();
+        sc.actionA();
+        sc.actionA();
+        sc.actionB();
+        assertTrue(sc.isAccept());
+        sc.actionA();
+        assertFalse(sc.isAccept());
+        sc.actionB();
+        assertTrue(sc.isAccept());
+    }
+
+    /*
+     * Test Sequence: BA
+     */
+    @Test
+    public void test_8() {
+        sc.actionB();
+        assertTrue(sc.isAccept());
+        sc.actionA();
+        assertFalse(sc.isAccept());
+    }
+
+    /*
+     * Test Sequence: AB
+     */
+    @Test
+    public void test_9() {
+        sc.actionA();
+        assertTrue(sc.isAccept());
+        sc.actionB();
         assertFalse(sc.isAccept());
     }
 }
